@@ -6,11 +6,13 @@ const HIDDEN_CLASSNAME = "hidden";
 
 function onLoginSubmit(event) {
   event.preventDefault();
-  const username = loginInput.value;
   loginForm.classList.add(HIDDEN_CLASSNAME);
-  // greeting.innerText = "hello " + username;
-  greeting.innerText = `Hello ${username}`;//백틱기호임 
+  const username = loginInput.value;
+  localStorage.setItem("username", username);//우선 저장될 값의
+  //이름(key)를 저장해주고, 그 다음에는 값인 username을 적어주면 된다.
+  //("저장될 아이템의 이름", username 변수)
+  greeting.innerText = `Hello ${username}`;
   greeting.classList.remove(HIDDEN_CLASSNAME);
 }
-//h1안에 텍스트를 추가하기 전에는 이 hidden class를 삭제할 수 없다.
+
 loginForm.addEventListener("submit", onLoginSubmit);

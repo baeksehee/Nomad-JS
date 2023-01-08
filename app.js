@@ -1,13 +1,16 @@
 const loginForm = document.querySelector("#login-form");
 const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
 
-function onLoginSubmit(event) {// JS에서는 공짜로 첫번째 argument로 발생된 event에 대한 정보를 준다.
-  event.preventDefault(); //preventDefault라는 function을 호출한 것이다.
-                           //이 function이 하는 일은 어떤 event의 기본 행동이든지 발생되지 않도록 막는 것이다.
-                           //form을 submit하면 브라우저는 기본적으로 페이지를 새로고침 하도록 되어 있다.
-                           //이 function을 추가함으로써 그 기본 동작을 막고 있는 것이다.
-  console.log(event);
+const HIDDEN_CLASSNAME = "hidden";
+
+function onLoginSubmit(event) {
+  event.preventDefault();
+  const username = loginInput.value;
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  // greeting.innerText = "hello " + username;
+  greeting.innerText = `Hello ${username}`;//백틱기호임 
+  greeting.classList.remove(HIDDEN_CLASSNAME);
 }
-//모든 EventListner function의 첫번째 argument는 항상 지금 막 벌어진 일들에 대한 정보가 될 것이다.
+//h1안에 텍스트를 추가하기 전에는 이 hidden class를 삭제할 수 없다.
 loginForm.addEventListener("submit", onLoginSubmit);
-//submit은 엔터를 누르거나 버튼을 클릭할 때 발생한다는 사실을 기억하도록 해.

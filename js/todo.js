@@ -2,6 +2,12 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = document.querySelector("#todo-form input"); // input을 document가 아닌 toDoForm 안에서 찾는 것이다.
 const toDoList = document.getElementById("todo-list");
 
+const toDos = [];
+
+function saveToDos() {
+  localStorage.setItem("todos", JSON.stringify(toDos)); //JSON.stringfy를 array모양으로 저장 가능.
+}
+
 function deleteToDo(event) {
   const li = event.target.parentElement; //target은 클릭된 HTML element.
   li.remove();
@@ -23,7 +29,9 @@ function handleToDoSubmit(event) {
   event.preventDefault();
   const newTodo = toDoInput.value; //이 변수 newToDo는 input의 value를 비우기 전의 값을 나타내는 것임. string임.
   toDoInput.value = "";
+  toDos.push(newTodo); //투두스는 array
   paintToDo(newTodo);
+  saveToDos(); //to두스 array를 localStorage에 집어 넣는 것임.
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit);

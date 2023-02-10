@@ -12,13 +12,15 @@ function saveToDos() {
 
 function deleteToDo(event) {
   const li = event.target.parentElement; //target은 클릭된 HTML element.
+  console.log(li.id);
   li.remove();
 }
 
 function paintToDo(newTodo) {
   const li = document.createElement("li");
+  li.id = newTodo.id
   const span = document.createElement("span");
-  span.innerText = newTodo; //span의 텍스트는 handleToDoSubmit에서 온 newTodo 텍스트가 된다.
+  span.innerText = newTodo.text; //
   const button = document.createElement("button");
   button.innerText = "❌";
   button.addEventListener("click", deleteToDo);
@@ -27,13 +29,17 @@ function paintToDo(newTodo) {
   toDoList.appendChild(li);
 }
 // newToDo를 작성하고 form을 submit할 때마다
-// newTodo를 toDos array(빈 array)에 그냥 push 하게 됨 
+// newTodo를 toDos array(빈 array)에 그냥 push 하게 됨
 function handleToDoSubmit(event) {
   event.preventDefault();
   const newTodo = toDoInput.value; //이 변수 newToDo는 input의 value를 비우기 전의 값을 나타내는 것임. string임.
   toDoInput.value = "";
-  toDos.push(newTodo); //투두스는 array
-  paintToDo(newTodo);
+  const newTodoObj = {
+    text: newTodo,
+    id: Date.now(),
+  };
+  toDos.push(newTodoObj); //투두스는 array
+  paintToDo(newTodoObj);
   saveToDos(); //to두스 array를 localStorage에 집어 넣는 것임.
 }
 

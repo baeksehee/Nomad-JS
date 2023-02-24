@@ -12,13 +12,14 @@ function saveToDos() {
 
 function deleteToDo(event) {
   const li = event.target.parentElement; //target은 클릭된 HTML element.
-  console.log(li.id);
   li.remove();
+  toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id)); //li.id는 string타입이고. toDo.id는 number 타입임. 그래서 parseInt를 활용
+  saveToDos() //`toDos` DB에서 todo를 지운 뒤에 saveToDos를 한 번 더 불러야 함
 }
 
 function paintToDo(newTodo) {
   const li = document.createElement("li");
-  li.id = newTodo.id
+  li.id = newTodo.id;
   const span = document.createElement("span");
   span.innerText = newTodo.text; //
   const button = document.createElement("button");
@@ -50,5 +51,9 @@ const savedToDos = localStorage.getItem(TODOS_KEY);
 if (savedToDos !== null) {
   const parsedToDos = JSON.parse(savedToDos);
   toDos = parsedToDos; // 투두스에 parsedToDos를 넣어서 전에 있던 toDo들을 복원 -> 투두스 array가 새로고침할 때마디 빈 값이 되지 않도록 됨
-  parsedToDos.forEach(paintToDo); //이 array에 있는 각각의 item에 대해서 function을 실행하는 거지 그리고 이것을 화살표 함수임
+  parsedToDos.forEach(paintToDo); //forEach 함수는 이 paintToDo를 parsedToDos 배열의 요소마다 실행
 }
+
+function sexyFilter() {}
+
+[1, 2, 3, 4].filter(sexyFilter);
